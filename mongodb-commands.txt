@@ -1,0 +1,41 @@
+MongoDB Shell Commands to Check Database
+========================================
+
+1. Connect to MongoDB:
+   mongosh
+
+2. Use the database:
+   use mini-ecommerce
+
+3. Show all collections:
+   show collections
+
+4. Count products:
+   db.products.countDocuments()
+
+5. Find all products:
+   db.products.find()
+
+6. Find specific product (Skincare Set):
+   db.products.findOne({name: "Skincare Set"})
+
+7. Find products with missing images:
+   db.products.find({images: {$size: 0}})
+
+8. Find products with specific image count:
+   db.products.find({images: {$size: 2}})
+
+9. Update Skincare Set images manually:
+   db.products.updateOne(
+     {name: "Skincare Set"},
+     {$set: {images: [
+       "https://picsum.photos/500/500?random=100",
+       "https://picsum.photos/500/500?random=101"
+     ]}}
+   )
+
+10. Check if update worked:
+    db.products.findOne({name: "Skincare Set"})
+
+11. Exit MongoDB:
+    exit

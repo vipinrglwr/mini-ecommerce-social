@@ -1,0 +1,29 @@
+MongoDB Compass Connection Details
+==================================
+
+CONNECTION STRING:
+mongodb://localhost:27017
+
+ALTERNATIVE CONNECTION STRING:
+mongodb://127.0.0.1:27017
+
+CONNECTION STEPS:
+1. Open MongoDB Compass
+2. Paste connection string: mongodb://localhost:27017
+3. Click "Connect"
+4. If connection fails, make sure MongoDB is running
+
+DATABASE NAME:
+mini-ecommerce
+
+COLLECTIONS TO CHECK:
+- products (contains all product data)
+- users (contains user accounts)
+- comments (contains product comments)
+
+WHAT TO LOOK FOR:
+- products collection should have 10 products
+- Each product should have an "images" array
+- Skincare Set should have 2 images
+- Professional Camera Lens should have 2 images
+- Smart Home Speaker should have 4 images

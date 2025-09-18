@@ -1,0 +1,54 @@
+MongoDB Compass Navigation Guide
+================================
+
+STEP 1: CONNECT TO DATABASE
+---------------------------
+1. Open MongoDB Compass
+2. In "New Connection" field, enter: mongodb://localhost:27017
+3. Click "Connect"
+4. If successful, you'll see your databases listed
+
+STEP 2: SELECT DATABASE
+-----------------------
+1. Look for database named "mini-ecommerce"
+2. Click on "mini-ecommerce" to expand it
+3. You'll see collections: products, users, comments
+
+STEP 3: CHECK PRODUCTS COLLECTION
+---------------------------------
+1. Click on "products" collection
+2. You'll see a list of all products
+3. Each product is a document with fields like:
+   - _id (unique identifier)
+   - name (product name)
+   - price (product price)
+   - images (array of image URLs)
+   - category, brand, etc.
+
+STEP 4: FIND SPECIFIC PRODUCTS
+------------------------------
+1. Click "Filter" button (funnel icon)
+2. Enter filter: {"name": "Skincare Set"}
+3. Click "Apply"
+4. This will show only the Skincare Set product
+5. Check the "images" field to see the URLs
+
+STEP 5: CHECK IMAGE URLS
+------------------------
+1. Look at the "images" field in the product document
+2. It should be an array like: ["url1", "url2"]
+3. Copy a URL and paste in browser to test if it loads
+4. If URL doesn't work, the image won't show in your app
+
+STEP 6: UPDATE PRODUCTS (if needed)
+-----------------------------------
+1. Click on a product document
+2. Click "Edit Document" (pencil icon)
+3. Find the "images" field
+4. Update the URLs as needed
+5. Click "Update" to save changes
+
+TROUBLESHOOTING:
+- If connection fails: Make sure MongoDB is running
+- If database is empty: Run seedData.js script
+- If images don't load: Check the URLs in browser
