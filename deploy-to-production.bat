@@ -1,49 +1,59 @@
 @echo off
-echo 🚀 Deploying to Production...
+echo 🚀 Complete Production Deployment
 echo.
 
-echo 1. Building frontend...
-cd frontend
-call npm install
-call npm run build
-echo ✅ Frontend built successfully
+echo 📋 Step 1: Deploy Backend to Render
+echo 1. Go to: https://dashboard.render.com
+echo 2. Sign up/Login with GitHub
+echo 3. Click "New +" → "Web Service"
+echo 4. Connect repository: vipinrglwr/mini-ecommerce-social
+echo 5. Configure:
+echo    - Name: mini-ecommerce-backend
+echo    - Environment: Node
+echo    - Root Directory: backend
+echo    - Build Command: npm install
+echo    - Start Command: npm start
+echo.
+echo 6. Add Environment Variables:
+echo    - NODE_ENV = production
+echo    - PORT = 5000
+echo    - MONGODB_URI = your-mongodb-atlas-uri
+echo    - JWT_SECRET = your-jwt-secret
+echo    - CORS_ORIGIN = https://your-app.vercel.app
+echo.
+echo 7. Click "Create Web Service"
+echo 8. Wait for deployment (5-10 minutes)
+echo 9. Note your backend URL
 echo.
 
-echo 2. Preparing backend...
-cd ../backend
-call npm install
-echo ✅ Backend prepared
+echo 📋 Step 2: Deploy Frontend to Vercel
+echo 1. Go to: https://vercel.com
+echo 2. Sign up/Login with GitHub
+echo 3. Click "New Project"
+echo 4. Import repository: vipinrglwr/mini-ecommerce-social
+echo 5. Configure:
+echo    - Framework: Vite
+echo    - Root Directory: frontend
+echo    - Build Command: npm run build
+echo    - Output Directory: dist
+echo.
+echo 6. Add Environment Variable:
+echo    - VITE_API_URL = https://mini-ecommerce-backend.onrender.com
+echo.
+echo 7. Click "Deploy"
+echo 8. Wait for deployment (2-3 minutes)
+echo 9. Note your frontend URL
 echo.
 
-echo 3. Creating deployment package...
-cd ..
-if exist deploy-package rmdir /s /q deploy-package
-mkdir deploy-package
-xcopy frontend\dist deploy-package\frontend\dist /E /I
-xcopy backend deploy-package\backend /E /I /EXCLUDE:exclude.txt
-echo ✅ Deployment package created
+echo 📋 Step 3: Update Backend CORS
+echo 1. Go to Render dashboard
+echo 2. Update CORS_ORIGIN with your Vercel URL
+echo 3. Redeploy backend
 echo.
 
-echo 4. Deployment Instructions:
+echo ✅ Deployment complete!
+echo 🌐 Frontend: https://your-app.vercel.app
+echo 🔧 Backend: https://mini-ecommerce-backend.onrender.com
+echo 🗄️ Database: MongoDB Atlas (Cloud)
 echo.
-echo 📦 Frontend (Netlify/Vercel):
-echo    - Upload deploy-package\frontend\dist
-echo    - Set environment variable: VITE_API_URL=https://your-api.onrender.com
-echo.
-echo ⚙️ Backend (Render/Heroku):
-echo    - Upload deploy-package\backend
-echo    - Set environment variables:
-echo      - MONGODB_URI=your-mongodb-atlas-uri
-echo      - JWT_SECRET=your-jwt-secret
-echo      - NODE_ENV=production
-echo      - CORS_ORIGIN=https://your-app.netlify.app
-echo.
-echo 📋 Next Steps:
-echo    1. Create MongoDB Atlas database
-echo    2. Deploy backend to Render/Heroku
-echo    3. Deploy frontend to Netlify/Vercel
-echo    4. Update CORS_ORIGIN with frontend URL
-echo    5. Test the deployed application
-echo.
-echo ✅ Deployment package ready in deploy-package folder
 pause
