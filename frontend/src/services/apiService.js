@@ -60,9 +60,9 @@ export const apiService = {
     add: (productId, quantity = 1) => 
       apiClient.post(API_ENDPOINTS.CART.ADD, { productId, quantity }),
     remove: (productId) => 
-      apiClient.delete(`${API_ENDPOINTS.CART.BASE}/${productId}`),
+      apiClient.delete(API_ENDPOINTS.CART.REMOVE(productId)),
     update: (productId, quantity) => 
-      apiClient.put(`${API_ENDPOINTS.CART.BASE}/${productId}`, { quantity }),
+      apiClient.put(API_ENDPOINTS.CART.UPDATE(productId), { quantity }),
     clear: () => apiClient.delete(API_ENDPOINTS.CART.BASE),
   },
 

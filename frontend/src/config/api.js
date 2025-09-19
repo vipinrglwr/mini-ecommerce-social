@@ -20,9 +20,9 @@ export const API_ENDPOINTS = {
   // Cart
   CART: {
     BASE: `${API_BASE_URL}/api/cart`,
-    ADD: `${API_BASE_URL}/api/cart/add`,
-    REMOVE: `${API_BASE_URL}/api/cart/remove`,
-    UPDATE: `${API_BASE_URL}/api/cart/update`,
+    ADD: `${API_BASE_URL}/api/cart`,
+    REMOVE: (productId) => `${API_BASE_URL}/api/cart/${productId}`,
+    UPDATE: (productId) => `${API_BASE_URL}/api/cart/${productId}`,
   },
   
   // Comments
