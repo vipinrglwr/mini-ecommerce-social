@@ -50,6 +50,8 @@ export const apiService = {
     getById: (id) => apiClient.get(API_ENDPOINTS.PRODUCTS.BY_ID(id)),
     getCategories: () => apiClient.get(API_ENDPOINTS.PRODUCTS.CATEGORIES),
     getFeatured: () => apiClient.get(API_ENDPOINTS.PRODUCTS.FEATURED),
+    like: (productId) => apiClient.post(`${API_ENDPOINTS.PRODUCTS.BY_ID(productId)}/like`),
+    share: (productId) => apiClient.post(`${API_ENDPOINTS.PRODUCTS.BY_ID(productId)}/share`),
   },
 
   // Cart

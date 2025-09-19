@@ -13,10 +13,7 @@ export default defineConfig({
       },
     },
   },
-  build: {
-    // Ensure environment variables are available at build time
-    define: {
-      'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'https://mini-ecommerce-backend-ppue.onrender.com')
-    }
-  }
+  define: {
+    'process.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'https://mini-ecommerce-backend.onrender.com'),
+  },
 })

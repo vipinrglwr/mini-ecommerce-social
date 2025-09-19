@@ -1,14 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
-
-const API_URL = '/api/products'
+import { apiService } from '../../services/apiService'
 
 // Async thunks
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async (params = {}, { rejectWithValue }) => {
     try {
-      const response = await axios.get(API_URL, { params })
+      const response = await apiService.products.getAll(params)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch products')
@@ -20,7 +18,7 @@ export const fetchProductById = createAsyncThunk(
   'products/fetchProductById',
   async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}/${id}`)
+      const response = await apiService.products.getById(id)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch product')
@@ -32,14 +30,7 @@ export const likeProduct = createAsyncThunk(
   'products/likeProduct',
   async (productId, { rejectWithValue, getState }) => {
     try {
-      const token = getState().auth.token
-      const response = await axios.post(
-        `${API_URL}/${productId}/like`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${token}` }
-        }
-      )
+      const response = await apiService.products.like(productId)
       return { productId, ...response.data }
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to like product')
@@ -51,7 +42,7 @@ export const shareProduct = createAsyncThunk(
   'products/shareProduct',
   async (productId, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${API_URL}/${productId}/share`)
+      const response = await apiService.products.share(productId)
       return { productId, ...response.data }
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to share product')
@@ -63,7 +54,7 @@ export const fetchFeaturedProducts = createAsyncThunk(
   'products/fetchFeaturedProducts',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}/featured`)
+      const response = await apiService.products.getFeatured()
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch featured products')
@@ -75,7 +66,7 @@ export const fetchCategories = createAsyncThunk(
   'products/fetchCategories',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}/categories`)
+      const response = await apiService.products.getCategories()
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch categories')
@@ -133,7 +124,12 @@ const productSlice = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.loading = false
-        state.products = action.payload.products
+        // If it's the first page, replace products, otherwise append
+        if (action.payload.currentPage === 1) {
+          state.products = action.payload.products
+        } else {
+          state.products = [...state.products, ...action.payload.products]
+        }
         state.pagination = {
           currentPage: action.payload.currentPage,
           totalPages: action.payload.totalPages,
