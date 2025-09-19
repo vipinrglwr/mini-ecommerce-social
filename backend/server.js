@@ -35,6 +35,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/products', require('./routes/products'));
 app.use('/api/cart', require('./routes/cart'));
 app.use('/api/comments', require('./routes/comments'));
+app.use('/api/seed', require('./routes/seed'));
 
 // Basic route
 app.get('/', (req, res) => {
