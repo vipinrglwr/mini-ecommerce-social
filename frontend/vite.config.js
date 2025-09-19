@@ -14,6 +14,6 @@ export default defineConfig({
     },
   },
   define: {
-    'process.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'https://mini-ecommerce-backend.onrender.com'),
+    'process.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'https://mini-ecommerce-backend-ppue.onrender.com'),
   },
 })
