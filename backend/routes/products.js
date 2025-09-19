@@ -10,11 +10,17 @@ const router = express.Router();
 // @access  Public
 router.get('/categories', async (req, res) => {
   try {
+    console.log('Categories endpoint called');
     const categories = await Product.distinct('category');
+    console.log('Categories found:', categories);
     res.json(categories);
   } catch (error) {
     console.error('Get categories error:', error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ 
+      message: 'Server error',
+      error: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
   }
 });
 

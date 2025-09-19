@@ -10,11 +10,28 @@ const corsOptions = {
       'http://localhost:5173',
       'https://your-app.netlify.app',
       'https://your-app.vercel.app',
+      // Allow all Vercel deployments
+      /^https:\/\/.*\.vercel\.app$/,
+      // Allow all Netlify deployments
+      /^https:\/\/.*\.netlify\.app$/,
+      // Allow all Netlify subdomains
+      /^https:\/\/.*\.netlify\.com$/,
     ];
     
-    if (allowedOrigins.includes(origin)) {
+    // Check if origin matches any allowed pattern
+    const isAllowed = allowedOrigins.some(allowedOrigin => {
+      if (typeof allowedOrigin === 'string') {
+        return allowedOrigin === origin;
+      } else if (allowedOrigin instanceof RegExp) {
+        return allowedOrigin.test(origin);
+      }
+      return false;
+    });
+    
+    if (isAllowed) {
       callback(null, true);
     } else {
+      console.log('CORS blocked origin:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
